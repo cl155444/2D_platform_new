@@ -6,9 +6,10 @@ public class MovementRigidbody2D : MonoBehaviour
 	[SerializeField]
 	private	LayerMask		groundCheckLayer;			// 바닥 체크를 위한 충돌 레이어
 	[SerializeField]
-	private	LayerMask		aboveCollisionLayer;		// 머리 충돌 체크를 위한 레이어
-
-	[Header("Move")]
+	private	LayerMask		aboveCollisionLayer;        // 머리 충돌 체크를 위한 레이어
+    [SerializeField]
+    private LayerMask belowCollisionLayer;      // 발 충돌 체크를 위한 레이어바
+    [Header("Move")]
 	[SerializeField]
 	private	float			walkSpeed = 5;				// 걷는 속도
 	[SerializeField]
@@ -39,9 +40,9 @@ public class MovementRigidbody2D : MonoBehaviour
 
 	public	bool			IsLongJump		{ set; get; } = false;			// 낮은 점프, 높은 점프 체크
 	public	bool			IsGrounded		{ private set; get; } = false;	// 바닥 체크 (바닥에 닿아있을 때 true)
-	public	Collider2D		HitAboveObject	{ private set; get; }			// 머리에 충돌한 오브젝트 정보
-
-	public	Vector2			Velocity => rigid2D.linearVelocity;
+	public	Collider2D		HitAboveObject	{ private set; get; }           // 머리에 충돌한 오브젝트 정보
+    public Collider2D HitBelowObject { private set; get; } // 발에 충돌한 오브젝트 정보
+    public	Vector2			Velocity => rigid2D.linearVelocity;
 
 	private void Awake()
 	{
@@ -90,7 +91,8 @@ public class MovementRigidbody2D : MonoBehaviour
 
 		// 플레이어의 머리에 충돌한 오브젝트 정보를 저장하는 충돌 박스
 		HitAboveObject	= Physics2D.OverlapBox(headPosition, collisionSize, 0, aboveCollisionLayer);
-	}
+        HitBelowObject = Physics2D.OverlapBox(footPosition, collisionSize, 0, belowCollisionLayer);
+    }
 
 	/// <summary>
 	/// y축 속력 설정(점프 행동). 외부 클래스에서 호출

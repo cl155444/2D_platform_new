@@ -33,7 +33,9 @@ public class PlayerController : MonoBehaviour
 		animator.UpdateAnimation(x);
 		// 머리에 충돌한 오브젝트 처리
 		UpdateAboveCollision();
-	}
+		// 발에 충돌한 오브젝트 처리
+		UpdateBelowCollision();
+    }
 
 	private void UpdateMove(float x)
 	{
@@ -76,4 +78,15 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 	}
+    private void UpdateBelowCollision()
+    {
+        if (movement.HitBelowObject != null)
+        {
+            if (movement.HitBelowObject.TryGetComponent<PlatformBase>(out var platform))
+            {
+                platform.UpdateCollision(gameObject);
+            }
+        }
+    }
+
 }

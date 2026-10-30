@@ -106,6 +106,11 @@ public class MovementRigidbody2D : MonoBehaviour
 		jumpBufferCounter = jumpBufferTime;
 	}
 
+	public void JumpTo(float force)
+	{
+		rigid2D.linearVelocityY = force;
+	}
+
 	private void JumpHeight()
 	{
 		// 낮은 점프, 높은 점프 구현을 위한 중력 계수(gravityScale) 조절 (Jump Up일 때만 적용)

@@ -9,7 +9,7 @@ public class PlatformDrop : PlatformBase
     [SerializeField]
     private RespawnType respawnType = RespawnType.AfterTime;
     [SerializeField]
-    private float respwnTyepe = 2f;
+    private float respawnTime = 2f;
 
     private BoxCollider2D boxCollider2D;
     private Rigidbody2D rigid2D;
@@ -42,7 +42,7 @@ public class PlatformDrop : PlatformBase
         // 재생성이 가능한 발판이면 respawnTime 이후 재생성
         if (respawnType == RespawnType.AfterTime)
         {
-            StartCoroutine(nameof(OnRespwn));
+            StartCoroutine(nameof(OnRespawn));
 
         }
         else
@@ -57,12 +57,11 @@ public class PlatformDrop : PlatformBase
         float percent = 0;
         float shakeAngle = 5;
         float shakeSpeed = 10;
-        float shkeSpeed = 10;
-        float ShakeTime = 1.5f;
+        float shakeTime = 1.5f;
 
         while ( percent < 1)
         {
-            percent += Time.deltaTime / ShakeTime;
+            percent += Time.deltaTime / shakeTime;
 
             float z = Mathf.Lerp(-shakeAngle, shakeAngle, Mathf.PingPong(Time.time * shakeSpeed, 1));
             transform.rotation = Quaternion.Euler(0, 0, z);
@@ -71,6 +70,23 @@ public class PlatformDrop : PlatformBase
         }
 
         transform.rotation = Quaternion.identity;
+    }
+    private void OnDrop()
+    {
+        boxCollider2D.enabled = false;
+        rigid2D.bodyType = RigidbodyType2D.Dynamic;
+    }
+
+    private IEnumerator OnRespawn()
+    {
+        yield return new WaitForSeconds(respawnTime);
+
+        IsHit = false;
+
+        transform.position = originPosition;
+        boxCollider2D.enabled = true;
+        rigid2D.bodyType = RigidbodyType2D.Kinematic;
+        rigid2D.linearVelocity = Vector2.zero;
     }
 }
 

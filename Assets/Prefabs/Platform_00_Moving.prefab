@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 6910126261706881318}
   - component: {fileID: 6887041592706328850}
   - component: {fileID: 4133537342451959772}
+  - component: {fileID: -6957712281150620566}
   m_Layer: 8
   m_Name: Platform_00_Moving
   m_TagString: Untagged
@@ -172,11 +173,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlatformMoving
   target: {fileID: 4913426659251360745}
-  wayPoints:
-  - {fileID: 6649483204455931097}
-  - {fileID: 3727920669267467746}
-  waitTime: 1
-  timeOffset: 0.5
 --- !u!50 &4133537342451959772
 Rigidbody2D:
   serializedVersion: 5
@@ -204,6 +200,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-6957712281150620566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3450056349840610861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 824d0365a3c9d1a4c8861d5afafb7038, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FollowPath
+  target: {fileID: 0}
+  wayPoints: []
+  waitTime: 0
+  timeOffset: 0
 --- !u!1 &3577107956027066789
 GameObject:
   m_ObjectHideFlags: 0
